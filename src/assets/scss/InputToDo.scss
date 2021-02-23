@@ -1,0 +1,99 @@
+#wrapperInput {
+  display: flex;
+  width: 35vw;
+  height: 85px;
+  border: 2px solid white;
+  margin-top: 60px;
+  padding-left: 20px;
+}
+
+#inputData {
+  background: none;
+  border: none;
+  outline: none;
+  height: 85px;
+  width: 35vw;
+
+  &::placeholder {
+    color: white;
+    font-size: 22px;
+  }
+
+  &:focus,
+  &:valid {
+    color: white;
+    font-size: 22px;
+  }
+}
+
+#wrapperAdd {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  background-color: #3691b8;
+
+  &:hover {
+    cursor: pointer;
+    background-color: #2f82a5;
+  }
+
+  img {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+@media only screen and (max-width: 1444px) {
+  #wrapperInput,
+  #inputData {
+    width: 80vw;
+    height: 120px;
+  }
+  #inputData {
+    &:focus,
+    &:valid,
+    &::placeholder {
+      font-size: 34px;
+    }
+  }
+  #wrapperAdd {
+    width: 150px;
+  }
+}
+
+@media only screen and (max-width: 930px) {
+  #wrapperInput,
+  #inputData {
+    height: 100px;
+  }
+  #inputData {
+    &:focus,
+    &:valid,
+    &::placeholder {
+      font-size: 24px;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #wrapperInput,
+  #inputData {
+    height: 70px;
+  }
+  #inputData {
+    &:focus,
+    &:valid,
+    &::placeholder {
+      font-size: 14px;
+    }
+  }
+  #wrapperAdd {
+    width: 90px;
+
+    img {
+        width: 25px;
+        height: 25px;
+    }
+  }
+}

@@ -1,0 +1,33 @@
+body {
+  background-color: #21292f;
+  overflow-x: hidden;
+  margin-bottom: 200px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#appText {
+  margin-top: 70px;
+  margin-left: 100px;
+  color: white;
+  font-family: "Gilroy";
+  font-weight: 900;
+  font-size: 36px;
+}
+
+#inputShowMain {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 600px) {
+  #appText {
+    font-size: 22px;
+    margin-left: 30px;
+  }
+}
