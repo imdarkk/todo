@@ -34,19 +34,20 @@ const ItemNotDone = (props) => {
                       const done = JSON.parse(localStorage.getItem("todoDone"));
                       done.push(n);
                       localStorage.setItem("todoDone", JSON.stringify(done));
-                      props.setDone(done);
-
-                      //Remove from not finished
-                      const notFinished = JSON.parse(localStorage.getItem("todoNotDone"));
-                      const index = notFinished.indexOf(n);
-
-                      if (index == -1) console.log("stfu its not possible");
-                      notFinished.splice(index, 1);
-                      localStorage.setItem("todoNotDone", JSON.stringify(notFinished));
-                      props.setNotDone(JSON.parse(localStorage.getItem("todoNotDone")));
+                      props.setDone(JSON.parse(localStorage.getItem("todoDone")));
                     } else {
                       localStorage.setItem("todoDone", JSON.stringify([n]));
+                      props.setDone(JSON.parse(localStorage.getItem("todoDone")));
                     }
+
+                    //Remove Item
+                    const notFinished = JSON.parse(localStorage.getItem("todoNotDone"));
+                    const index = notFinished.indexOf(n);
+
+                    if (index == -1) console.log("stfu its not possible");
+                    notFinished.splice(index, 1);
+                    localStorage.setItem("todoNotDone", JSON.stringify(notFinished));
+                    props.setNotDone(JSON.parse(localStorage.getItem("todoNotDone")));
                   }}
                 >
                   <img src={check} alt="" />
