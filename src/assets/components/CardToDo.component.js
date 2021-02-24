@@ -7,44 +7,45 @@ import "../scss/ItemNotDone.scss";
 import check from "../icons/icon_check.svg";
 import trashcan from "../icons/icon_trashcan.svg";
 
-const ItemNotDone = () => {
-  const [notDone, setNotDone] = React.useState([]);
+
+const ItemNotDone = (props) => {
 
   React.useEffect(() => {
     let data = JSON.parse(localStorage.getItem("todoNotDone"));
-    setNotDone(data);
-  }, [notDone]);
+    props.setNotDone(data);
+  }, []);
 
   return (
     <div id="wrapperItemNotDone">
       <p id="notDoneText">Not Finished</p>
       <div id="container">
-        {notDone != null &&
-          notDone != undefined &&
-          notDone != "" &&
-          notDone.map((n) => (
-            <div className="wrapperNotDone">
+        {props.notDone != null &&
+          props.notDone != undefined &&
+          props.notDone != "" &&
+          props.notDone.map((n, key) => (
+            <div key={key} className="wrapperNotDone">
               <p>{n}</p>
               <div id="actionWrapper">
                 <div
                   id="complete"
                   onClick={() => {
-                    console.log(n);
                     if (localStorage.getItem("todoDone")) {
                       //Add to finished
                       const done = JSON.parse(localStorage.getItem("todoDone"));
                       done.push(n);
-                      localStorage.setItem("todoDone", JSON.stringify(done))
-                      
+                      localStorage.setItem("todoDone", JSON.stringify(done));
+                      props.setDone(done);
+
                       //Remove from not finished
                       const notFinished = JSON.parse(localStorage.getItem("todoNotDone"));
                       const index = notFinished.indexOf(n);
 
-                      if (index == -1) console.log('stfu its not possible')
-                      notFinished.splice(index, 1)
-                      localStorage.setItem("todoNotDone", JSON.stringify(notFinished))
+                      if (index == -1) console.log("stfu its not possible");
+                      notFinished.splice(index, 1);
+                      localStorage.setItem("todoNotDone", JSON.stringify(notFinished));
+                      props.setNotDone(JSON.parse(localStorage.getItem("todoNotDone")));
                     } else {
-                      localStorage.setItem("todoDone", JSON.stringify([n]))
+                      localStorage.setItem("todoDone", JSON.stringify([n]));
                     }
                   }}
                 >
@@ -54,12 +55,13 @@ const ItemNotDone = () => {
                   id="trash"
                   onClick={() => {
                     //Remove item from not finished
-                    let index = notDone.indexOf(n);
+                    let index = props.notDone.indexOf(n);
                     const oldItems = JSON.parse(localStorage.getItem("todoNotDone"));
 
                     if (index == -1) console.log("stfu its not possible");
                     oldItems.splice(index, 1);
-                    localStorage.setItem("todoNotDone",JSON.stringify(oldItems));
+                    localStorage.setItem("todoNotDone", JSON.stringify(oldItems));
+                    props.setNotDone(JSON.parse(localStorage.getItem("todoNotDone")));
                   }}
                 >
                   <img src={trashcan} alt="" />
@@ -72,23 +74,22 @@ const ItemNotDone = () => {
   );
 };
 
-const ItemDone = () => {
-  const [done, setDone] = React.useState([]);
+const ItemDone = (props) => {
 
   React.useEffect(() => {
     const doneData = JSON.parse(localStorage.getItem("todoDone"));
-    setDone(doneData);
-  }, [done]);
+    props.setDone(doneData);
+  }, []);
 
   return (
     <div id="wrapperItemNotDone">
       <p id="notDoneText">Finished</p>
       <div id="container">
-        {done != null &&
-          done != undefined &&
-          done != "" &&
-          done.map((d) => (
-            <div className="wrapperNotDone">
+        {props.done != null &&
+          props.done != undefined &&
+          props.done != "" &&
+          props.done.map((d, key) => (
+            <div key={key} className="wrapperNotDone">
               <p>{d}</p>
               <div id="actionWrapper">
                 <div
@@ -100,7 +101,8 @@ const ItemDone = () => {
 
                     if (index == -1) console.log("stfu its not possible");
                     finished.splice(index, 1);
-                    localStorage.setItem("todoDone",JSON.stringify(finished));
+                    localStorage.setItem("todoDone", JSON.stringify(finished));
+                    props.setDone(JSON.parse(localStorage.getItem("todoDone")))
                   }}
                 >
                   <img src={trashcan} alt="" />

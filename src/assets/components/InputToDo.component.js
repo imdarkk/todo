@@ -6,7 +6,7 @@ import "../scss/InputToDo.scss";
 //Images
 import add from "../icons/icon_add.svg";
 
-const InputToDo = () => {
+const InputToDo = (props) => {
   const [data, setData] = React.useState("");
 
   const handleOnChange = (e) => {
@@ -32,9 +32,11 @@ const InputToDo = () => {
             let parsed = JSON.stringify(oldData);
             localStorage.setItem("todoNotDone", parsed);
             setData("");
+            props.setNotDone(JSON.parse(localStorage.getItem("todoNotDone")));
           } else {
             localStorage.setItem("todoNotDone", JSON.stringify([data]));
             setData("");
+            props.setNotDone(JSON.parse(localStorage.getItem("todoNotDone")))
           }
         }}
       >
