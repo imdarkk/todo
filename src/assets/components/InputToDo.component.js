@@ -13,6 +13,21 @@ const InputToDo = (props) => {
     setData(e.target.value);
   };
 
+  const handleSubmit = () => {
+    if (localStorage.getItem("todoNotDone")) {
+      let oldData = JSON.parse(localStorage.getItem("todoNotDone"));
+      oldData.push(data);
+      let parsed = JSON.stringify(oldData);
+      localStorage.setItem("todoNotDone", parsed);
+      setData("");
+      props.setNotDone(JSON.parse(localStorage.getItem("todoNotDone")));
+    } else {
+      localStorage.setItem("todoNotDone", JSON.stringify([data]));
+      setData("");
+      props.setNotDone(JSON.parse(localStorage.getItem("todoNotDone")));
+    }
+  }
+
   return (
     <div id="wrapperInput">
       <input
@@ -22,23 +37,13 @@ const InputToDo = (props) => {
         id="inputData"
         placeholder="Add a task"
         required
+        onKeyDown={(e) => {
+          if (e.key === "Enter") handleSubmit();
+        }}
       />
       <div
         id="wrapperAdd"
-        onClick={() => {
-          if (localStorage.getItem("todoNotDone")) {
-            let oldData = JSON.parse(localStorage.getItem("todoNotDone"));
-            oldData.push(data);
-            let parsed = JSON.stringify(oldData);
-            localStorage.setItem("todoNotDone", parsed);
-            setData("");
-            props.setNotDone(JSON.parse(localStorage.getItem("todoNotDone")));
-          } else {
-            localStorage.setItem("todoNotDone", JSON.stringify([data]));
-            setData("");
-            props.setNotDone(JSON.parse(localStorage.getItem("todoNotDone")))
-          }
-        }}
+        onClick={handleSubmit}
       >
         <img src={add} alt="" />
       </div>
